@@ -1,0 +1,19 @@
+version: '2'
+services:
+  odoo:
+    image: odoo:10.0
+    depends_on:
+      - db
+    ports:
+      - "8282:8069"
+    volumes:
+      - ./config:/etc/odoo
+      - ./extra_addons:/opt/odoo/extra_addons
+      - ./odoo:/usr/lib/python3/dist-packages/odoo
+  db:
+    image: postgres:9.5
+    environment:
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+    ports:
+      - "5282:5432"
